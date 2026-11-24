@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="A simple DSA-powered online quiz system built with HTML, CSS and JavaScript.">
+  <title>QuizLab | Online Quiz System</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <header class="topbar">
+    <a class="brand" href="#" data-view="home"><span class="brand-mark">Q</span> Quiz<span>Lab</span></a>
+    <nav aria-label="Main navigation">
+      <button class="nav-link active" data-view="home">Home</button>
+      <button class="nav-link" data-view="leaderboard">Leaderboard</button>
+      <button class="nav-link" data-view="dsa">DSA Lab</button>
+    </nav>
+    <div class="top-tag"><span class="status-dot"></span> DSA Project</div>
+  </header>
+
+  <main class="container">
+    <section id="homeView" class="view active">
+      <div class="hero">
+        <div class="hero-copy">
+          <span class="eyebrow"><span class="spark">✦</span> LEARN. THINK. SCORE.</span>
+          <h1>Challenge your<br><span>knowledge.</span></h1>
+          <p>Test your Data Structures and Algorithms basics with a quick, interactive quiz. Track your score and see how you rank.</p>
+          <div class="hero-actions">
+            <button class="btn btn-primary" id="startBtn">Start Quiz <span>→</span></button>
+            <button class="btn btn-quiet" data-view="dsa">Explore DSA Lab</button>
+          </div>
+          <div class="hero-meta"><span>◷ 5–10 minutes</span><span>•</span><span>10 questions</span><span>•</span><span>Instant result</span></div>
+        </div>
+        <div class="hero-art" aria-hidden="true">
+          <div class="orbit orbit-one"></div><div class="orbit orbit-two"></div>
+          <div class="quiz-illustration">
+            <div class="float-chip chip-a">✓ Correct</div>
+            <div class="float-chip chip-b">01 / 10</div>
+            <div class="paper">
+              <div class="paper-top"><span></span><span></span><span></span></div>
+              <div class="paper-title"></div><div class="paper-line"></div><div class="paper-line short"></div>
+              <div class="paper-option selected"><i> A </i><b></b><em>✓</em></div>
+              <div class="paper-option"><i> B </i><b></b></div>
+              <div class="paper-option"><i> C </i><b></b></div>
+              <div class="paper-option"><i> D </i><b></b></div>
+            </div>
+            <div class="float-star">✦</div>
+          </div>
+        </div>
+      </div>
+      <div class="feature-grid">
+        <article class="feature-card"><div class="feature-icon blue">▤</div><h3>Smart quiz flow</h3><p>Move between questions and review your answers before submitting.</p></article>
+        <article class="feature-card"><div class="feature-icon violet">↗</div><h3>Track your score</h3><p>See correct and incorrect answers with a clear result summary.</p></article>
+        <article class="feature-card"><div class="feature-icon green">⌘</div><h3>DSA in action</h3><p>Explore arrays, stacks, queues and sorting through live demos.</p></article>
+      </div>
+    </section>
+
+    <section id="quizView" class="view">
+      <div class="section-heading">
+        <div><span class="eyebrow">QUIZ SESSION</span><h2>DSA knowledge check</h2><p>Choose one answer for each question.</p></div>
+        <button class="btn btn-outline btn-small" id="exitQuizBtn">Exit quiz</button>
+      </div>
+      <div class="quiz-layout">
+        <div class="quiz-main card">
+          <div class="quiz-progress-row"><span id="questionLabel">Question 1 of 10</span><span id="progressPercent">10%</span></div>
+          <div class="progress-track"><div id="progressBar" class="progress-fill"></div></div>
+          <div class="question-number" id="questionNumber">QUESTION 01</div>
+          <h3 id="questionText">Question text appears here</h3>
+          <div id="optionsList" class="options-list"></div>
+          <div class="quiz-controls">
+            <button class="btn btn-outline" id="prevBtn">← Previous</button>
+            <button class="btn btn-primary" id="nextBtn">Next question →</button>
+            <button class="btn btn-success hidden" id="submitBtn">Submit quiz ✓</button>
+          </div>
+        </div>
+        <aside class="quiz-side card">
+          <h3>Question map</h3><p class="muted small">Your progress at a glance</p>
+          <div id="questionMap" class="question-map"></div>
+          <div class="legend"><span><i class="legend-current"></i> Current</span><span><i class="legend-answered"></i> Answered</span><span><i class="legend-empty"></i> Not answered</span></div>
+          <div class="side-tip"><span>💡</span><p>You can go back and change your answers before submitting.</p></div>
+        </aside>
+      </div>
+    </section>
+
+    <section id="resultView" class="view">
+      <div class="result-wrap">
+        <div class="result-card card">
+          <div class="result-icon" id="resultIcon">🏆</div>
+          <span class="eyebrow">QUIZ COMPLETED</span>
+          <h2 id="resultTitle">Well done!</h2>
+          <p id="resultMessage" class="muted">Here is how you performed.</p>
+          <div class="score-ring" id="scoreRing"><div><strong id="scoreValue">0/10</strong><span>Your score</span></div></div>
+          <div class="result-stats">
+            <div><strong class="green-text" id="correctCount">0</strong><span>Correct</span></div>
+            <div><strong class="red-text" id="wrongCount">0</strong><span>Wrong</span></div>
+            <div><strong id="percentValue">0%</strong><span>Accuracy</span></div>
+          </div>
+          <div class="result-actions"><button class="btn btn-primary" id="retryBtn">Try again ↻</button><button class="btn btn-outline" data-view="leaderboard">View leaderboard</button></div>
+        </div>
+        <div class="review-card card">
+          <div class="section-heading compact"><div><span class="eyebrow">ANSWER REVIEW</span><h3>What you got right</h3></div></div>
+          <div id="answerReview" class="answer-review"></div>
+        </div>
+      </div>
+    </section>
+
+    <section id="leaderboardView" class="view">
+      <div class="section-heading">
+        <div><span class="eyebrow">TOP PERFORMERS</span><h2>Leaderboard</h2><p>Scores are saved in this browser on this device.</p></div>
+        <button class="btn btn-outline btn-small" id="clearScoresBtn">Clear scores</button>
+      </div>
+      <div class="card leaderboard-card">
+        <div class="leaderboard-toolbar"><div><span class="eyebrow">ALL-TIME SCORES</span><h3>Quiz champions</h3></div><label class="sort-label" for="sortMethod">Sort using <select id="sortMethod"><option value="merge">Merge Sort</option><option value="bubble">Bubble Sort</option></select></label></div>
+        <div id="leaderboardList"></div>
+        <p class="sort-note" id="sortNote">Sorted by score using Merge Sort (descending).</p>
+      </div>
+    </section>
+
+    <section id="dsaView" class="view">
+      <div class="section-heading"><div><span class="eyebrow">BEHIND THE QUIZ</span><h2>DSA Lab</h2><p>See how each data structure and algorithm powers this project.</p></div></div>
+      <div class="dsa-grid">
+        <article class="card dsa-card">
+          <div class="dsa-heading"><span class="feature-icon blue">▦</span><div><h3>Array</h3><p>Questions are stored in an array.</p></div></div>
+          <div class="demo-label">QUESTION BANK</div><div id="arrayDemo" class="array-demo"></div>
+          <p class="dsa-explain">Each array item is an object containing the question, four options and the correct answer.</p>
+        </article>
+        <article class="card dsa-card">
+          <div class="dsa-heading"><span class="feature-icon violet">▤</span><div><h3>Stack</h3><p>LIFO · Last In, First Out</p></div></div>
+          <div class="demo-label">NAVIGATION HISTORY</div>
+          <div class="stack-area"><div id="stackDemo" class="stack-demo"><span class="empty-state">No navigation yet</span></div><div class="stack-label">TOP ↑</div></div>
+          <div class="demo-actions"><button class="btn btn-small btn-primary" id="stackPushBtn">Push Q3</button><button class="btn btn-small btn-outline" id="stackPopBtn">Pop</button></div>
+          <p class="dsa-explain">When you move to another question, the current question is pushed onto the stack. Previous uses pop to return.</p>
+        </article>
+        <article class="card dsa-card">
+          <div class="dsa-heading"><span class="feature-icon green">⇥</span><div><h3>Queue</h3><p>FIFO · First In, First Out</p></div></div>
+          <div class="demo-label">QUESTION DELIVERY</div><div id="queueDemo" class="queue-demo"></div>
+          <div class="demo-actions"><button class="btn btn-small btn-primary" id="enqueueBtn">Enqueue Q6</button><button class="btn btn-small btn-outline" id="dequeueBtn">Dequeue</button></div>
+          <p class="dsa-explain">Questions are added at the rear and delivered from the front in the same order.</p>
+        </article>
+        <article class="card dsa-card sorting-card">
+          <div class="dsa-heading"><span class="feature-icon orange">↕</span><div><h3>Sorting algorithms</h3><p>Descending leaderboard scores</p></div></div>
+          <div class="sort-demo"><div><span class="demo-label">UNSORTED</span><div id="unsortedScores" class="score-pills"></div></div><div class="sort-arrow">↓</div><div><span class="demo-label">SORTED · HIGH TO LOW</span><div id="sortedScores" class="score-pills"></div></div></div>
+          <div class="demo-actions"><button class="btn btn-small btn-primary" id="bubbleDemoBtn">Run Bubble Sort</button><button class="btn btn-small btn-outline" id="mergeDemoBtn">Run Merge Sort</button></div>
+          <p class="sort-feedback" id="sortFeedback">Choose an algorithm to sort the sample scores.</p>
+          <p class="dsa-explain">Bubble Sort swaps adjacent values. Merge Sort divides the list, sorts each half and merges them. Both are implemented manually in JavaScript.</p>
+        </article>
+      </div>
+    </section>
+  </main>
+
+  <footer><span class="brand-mark mini">Q</span><span>QuizLab</span><span class="footer-dot">•</span><span>Built with HTML, CSS & Vanilla JavaScript</span></footer>
+  <div id="toast" class="toast" role="status" aria-live="polite"></div>
+  <script src="script.js"></script>
+</body>
+</html>
